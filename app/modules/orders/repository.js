@@ -1,7 +1,6 @@
 var Order     = require('../../models/order');
 var Client     = require('../../models/client');
 var emailSender  = require('../../modules/orders/action.sendMail');
-
 module.exports = {
     create: function (payload) {
         var savedOrder = null;
@@ -35,5 +34,7 @@ module.exports = {
         return Order.find({_id: orderId}).populate('client').populate('products');
     }
 
-
+    /*deleteOrderById: function(order_id){
+        Order.remove({_id: req.params.order_id})
+    }*/
 };
