@@ -1,3 +1,5 @@
+var Repository = require('./repository');
+
 module.exports = function(req, res) {
 
     if(typeof req.body == 'undefined' || Object.keys(req.body).length == 0) {

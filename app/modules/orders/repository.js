@@ -23,28 +23,17 @@ module.exports = {
     },
 
     getAllForClient: function (clientId) {
-        return Order.find({client: clientId})
+        return Order.find({client: clientId});
     },
 
     getAll: function (filter) {
-        return Order.find(filter)
+        return Order.find(filter).populate('client');
     },
 
-    getById: function(req, res) {
-        Order.findById(req.params.clientId)
-            .populate('client')
-            .exec(function (err, order) {
-                if (err)
-                    res.send(err);
-                res.json(order);
-            })
+
+    getAllForOrder: function (orderId) {
+        return Order.find({_id: orderId}).populate('client').populate('products');
     }
-
-
-
-
-
-
 
 
 };
