@@ -1,3 +1,6 @@
+
+
+/*
 // BASE SETUP
 // =============================================================================
 
@@ -270,13 +273,13 @@ conn.once('open', function() {
         })
 
 
-       /* .get(function(req, res) {
+       /!* .get(function(req, res) {
             Order.findById(req.params.orders_id, function(err, order) {
                 if (err)
                     res.send(err);
                 res.json(order);
             });
-        })*/
+        })*!/
 
 
 
@@ -406,3 +409,4 @@ conn.once('open', function() {
 });
 
 
+*/

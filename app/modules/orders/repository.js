@@ -12,10 +12,11 @@ module.exports = {
             .then(function () {
                 return Client.findById(savedOrder.client)
             })
-            /*.then(function (client) {
+            .then(function (client) {
                 //send email to client obj
                 return emailSender(client.email, client.firstname, savedOrder);
-            })*/.then(function () {
+            })
+            .then(function () {
                 return savedOrder;
             })
             ;
@@ -26,15 +27,43 @@ module.exports = {
     },
 
     getAll: function (filter) {
-        return Order.find(filter).populate('client');
+        return Order.find(filter).populate('client').populate('products');
     },
 
 
     getAllForOrder: function (orderId) {
         return Order.find({_id: orderId}).populate('client').populate('products');
+    },
+
+
+    ensureAuthenticated: function ensureAuthenticated(req, res, next) {
+        // console.log(req);
+        if (req.isAuthenticated())
+            return next();
+        else{
+            res.json('you are not logged in!')
+        }
     }
 
-    /*deleteOrderById: function(order_id){
-        Order.remove({_id: req.params.order_id})
-    }*/
+
+
+
+
+    /*findByIdAndUpdate:  function (filter) {
+        Order.findByIdAndUpdate(filter, {$set:
+            {
+                date: req.body.date,
+                delivery: req.body.delivery,
+                payment: req.body.payment,
+                products: req.body.products,
+                client: req.body.client
+            }}, {new: true})}
+
+*/
+
+
+
+/*deleteOrderById: function(order_id){
+    Order.remove({_id: req.params.order_id})
+}*/
 };
