@@ -1,23 +1,38 @@
 var Repository = require('./repository');
 
+
 module.exports = function(req, res) {
-    console.log(req.body);
-    if(typeof req.body == 'undefined' || typeof req.body.client == 'undefined') {
-        return res.status(400).json({
-            success: false,
-            data: "Specify a client id"
-        });
+
+    var filters = {};
+
+    console.log("body is", req.query);
+
+    if(req.query) {
+        if(typeof req.query.order != 'undefined') {
+            filters.order = req.query.order;
+        }
+
+
+        if(typeof req.query.client != 'undefined') {
+            filters.client = req.query.client;
+        }
+
+
+
+        if(typeof req.query.minDate != 'undefined' || typeof req.query.maxDate != 'undefined') {
+            filters.date = {};
+            if(typeof req.query.minDate != 'undefined'){
+                filters.date['$gte'] = new Date(req.query.minDate);
+            }
+            if(typeof req.query.maxDate != 'undefined'){
+                filters.date['$lt'] = new Date(req.query.maxDate);
+            }
+        }
     }
 
-    Repository.getAllForClient(req.body).then(function (allOrders) {
-        res.json({
-            success: true,
-            data: allOrders
-        });
-    });
+    console.log("filter is: ", filters);
 
-
-    Repository.getAll(req.body).then(function (Orders) {
+    Repository.getAll(filters).then(function (Orders) {
         res.json({
             success: true,
             data: Orders
@@ -28,5 +43,4 @@ module.exports = function(req, res) {
             data: error
         });
     })
-
 };

@@ -1,9 +1,11 @@
-/*
+
 var nodemailer = require("nodemailer");
-var config = require("../../config");
+var config = require("../../configMail");
+
+
 
 // create reusable transport method (opens pool of SMTP connections)
-var smtpTransport = nodemailer.createTransport("SMTP",{
+var smtpTransport = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true, // upgrade later with STARTTLS
@@ -34,4 +36,3 @@ module.exports = function (toEmail, toName, Order) {
     })
 
 };
-*/

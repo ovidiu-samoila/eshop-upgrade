@@ -1,26 +1,24 @@
 var Repository = require('./repository');
 
+
 module.exports = function(req, res) {
+    switch (req.param('type')){
+        case 'order_id':
+            Repository.getAllForOrder(req.param('order_id')).then(function (allOrders) {
+                res.json({
+                    success: true,
+                    data: allOrders
+                });
+            });
+            break;
+        case 'client_id':
+            Repository.getAllForClient(req.param('id')).then(function (allOrders) {
+                res.json({
+                    success: true,
+                    data: allOrders
+                });
 
-    console.log(req.body);
-    if(typeof req.body == 'undefined' || typeof req.body.client == 'undefined') {
-        return res.status(400).json({
-            success: false,
-            data: "Specify a client id"
-        });
-    }
-
-
-    Repository.getById(req.body).then(function (Order) {
-        res.json({
-            success: true,
-            data:Order
-        });
-    }).catch(function (error) {
-        res.status(400).json({
-            success: false,
-            data: error
-        });
-    })
-
+            });
+            break;
+        }
 };
