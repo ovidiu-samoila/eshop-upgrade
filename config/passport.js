@@ -3,7 +3,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 
-var Client           = require('../app/models/client');
+var Client           = require('../models/client');
 
 var configAuth       = require('./auth.js');
 
@@ -78,7 +78,7 @@ module.exports = function(passport) {
                     return done(err);
 
                 if (!client)
-                    return done(null, false, req.flash('loginMessage', 'No client found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('loginMessage', 'No client found.Redirect to register...')); // req.flash is the way to set flashdata using connect-flash
 
                 if (!client.validPassword(password))
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
