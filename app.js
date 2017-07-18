@@ -46,7 +46,7 @@ conn.once('open', function() {
 
 
 
-    require('../config/passport')(passport);
+    require('./config/passport')(passport);
     app.use('/api', appRoutes(passport));
     var port = 3000;
 

@@ -14,7 +14,7 @@ module.exports = function(passport) {
 
     router.post('/login', passport.authenticate('local-login', {
         successRedirect : '/api/auth/profile',
-        failureRedirect : '/api/auth/login',
+        failureRedirect : '/api/auth/signup',
         failureFlash : true
     }));
 
